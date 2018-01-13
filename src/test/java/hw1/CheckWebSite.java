@@ -15,7 +15,7 @@ public class CheckWebSite {
     private WebDriver driver;
 
     @Test
-    public void testTitle() {
+    public void testWesite() {
         //Open website by URL
         {
             setProperty("webdriver.chrome.driver", "chromedriver");
