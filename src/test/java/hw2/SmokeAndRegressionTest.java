@@ -1,26 +1,17 @@
 package hw2;
 
+import base.TestBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class SmokeAndRegressionTest {
-    private WebDriver driver;
+public class SmokeAndRegressionTest extends TestBase {
 
     @BeforeTest(alwaysRun = true)
     public void setup() {
-        driver = new ChromeDriver();
         driver.navigate().to("https://jdi-framework.github.io/tests");
-    }
-
-    @AfterTest(alwaysRun = true)
-    public void tearDown() {
-        driver.close();
     }
 
     @Test(groups = {"smoke", "regression"})
