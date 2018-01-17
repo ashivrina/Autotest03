@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,6 +14,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class LoginPage {
+
     private WebDriver driver;
 
     @BeforeMethod
@@ -43,7 +43,8 @@ public class LoginPage {
         driver.findElement(By.cssSelector(".form-horizontal [type='submit']")).click();
 
         //4 Assert User name in the left-top side of screen that user is logged in
-        WebElement userName = driver.findElement(By.xpath("/html/body/div/header/div/nav/ul[2]/li/a/div/span"));
+//        WebElement userName = driver.findElement(By.xpath("/html/body/div/header/div/nav/ul[2]/li/a/div/span"));
+        WebElement userName = driver.findElement(By.cssSelector(".profile-photo>span"));
         assertEquals(userName.getText(), "PITER CHAILOVSKII");
 
         //5 Assert Browser title...again
