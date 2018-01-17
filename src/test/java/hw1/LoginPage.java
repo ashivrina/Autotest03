@@ -60,8 +60,7 @@ public class LoginPage {
         String[] correctTexts = {"To include good practices and ideas from successful EPAM projec",
                 "To be flexible and customizable",
                 "To be multiplatform",
-                "Already have good base (about 20 internal and " +
-                        "some external projects), wish to get more…"};
+                "Already have good base (about 20 internal and some external projects), wish to get more…"};
 
         List<WebElement> textUnderIcons = driver.findElements(By.cssSelector(".benefit-txt"));
         for (WebElement text : textUnderIcons) {
