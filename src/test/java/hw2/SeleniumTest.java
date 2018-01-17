@@ -4,14 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.util.List;
 
 import static java.lang.System.setProperty;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class SeleniumTest {
+
     private WebDriver driver;
 
     @BeforeSuite
@@ -42,92 +44,58 @@ public class SeleniumTest {
 
     @AfterSuite
     public void tearDownTestSuite() {
-        if(driver.toString().contains("null")) {
+        if (driver.toString().contains("null")) {
             driver.quit();
         }
     }
 
     @Test
     public void testWesite() {
-        //Open website by URL
-        {
-            driver.manage().window().fullscreen();
-            driver.navigate().to("https://jdi-framework.github.io/tests");
+        //1 Open website by URL
+        driver.navigate().to("https://jdi-framework.github.io/tests");
+
+        //2 Assert Browser title
+        assertEquals(driver.getTitle(), "Index Page");
+
+        //3 Perform login
+        driver.findElement(By.cssSelector(".uui-profile-menu .dropdown-toggle")).click();
+        driver.findElement(By.cssSelector("#Login")).sendKeys("epam");
+        driver.findElement(By.cssSelector("#Password")).sendKeys("1234");
+        driver.findElement(By.cssSelector(".form-horizontal [type='submit']")).click();
+
+        //4 Assert User name in the left-top side of screen that user is logged in
+//        WebElement userName = driver.findElement(By.xpath("/html/body/div/header/div/nav/ul[2]/li/a/div/span"));
+        WebElement userName = driver.findElement(By.cssSelector(".profile-photo>span"));
+        assertEquals(userName.getText(), "PITER CHAILOVSKII");
+
+        //5 Assert Browser title...again
+        assertEquals(driver.getTitle(), "Index Page");
+
+        //6 Assert that there are 4 images on the Home Page and they are displayed
+        List<WebElement> images = driver.findElements(By.cssSelector(".benefit-icon"));
+        assertEquals(images.size(), 4);
+        for (WebElement image : images) {
+            assertTrue(image.isDisplayed());
         }
 
-        //Checking the browser title
-        {
-            Assert.assertEquals(driver.getTitle(), "Index Page");
+        //7 Assert that there are 4 texts on the Home Page and check them by getting texts
+        String[] correctTexts = {"To include good practices and ideas from successful EPAM projec",
+                "To be flexible and customizable",
+                "To be multiplatform",
+                "Already have good base (about 20 internal and some external projects), wish to get more…"};
+
+        List<WebElement> textUnderIcons = driver.findElements(By.cssSelector(".benefit-txt"));
+        for (WebElement text : textUnderIcons) {
+            assertTrue(text.isDisplayed());
+        }
+        for (int i = 0; i < textUnderIcons.size(); i++) {
+            assertEquals(textUnderIcons.get(i).getText().replaceAll("\n", " "), correctTexts[i]);
         }
 
-        //logging in to website
-        {
-            WebElement profilePicture = driver.findElement(By.className("uui-profile-menu"));
-            profilePicture.click();
-
-            WebElement loginField = driver.findElement(By.id("Login"));
-            loginField.click();
-            loginField.sendKeys("epam");
-
-            WebElement passwordField = driver.findElement(By.id("Password"));
-            passwordField.click();
-            passwordField.sendKeys("1234");
-
-            WebElement enterButton = driver.findElement(By.className("fa-sign-in"));
-            enterButton.click();
-        }
-
-        //Checking username
-        {
-            WebElement userName = driver.findElement(By.xpath("/html/body/div/header/div/nav/ul[2]/li/a/div/span"));
-            Assert.assertEquals(userName.getText(), "PITER CHAILOVSKII");
-        }
-
-        //Checking the browser title...again
-        {
-            Assert.assertEquals(driver.getTitle(), "Index Page");
-        }
-
-        //Checking that there are 4 images and they are displayed
-        {
-            List<WebElement> images = driver.findElements(By.className("benefit-icon"));
-            Assert.assertEquals(images.size(), 4);
-            for (WebElement image : images) {
-                Assert.assertTrue(image.isDisplayed());
-            }
-        }
-
-        //Checking that texts below images are expected
-        {
-           String expectedText1 = "To include good practices\n" +
-                   "and ideas from successful\n" +
-                   "EPAM projec";
-            String expectedText2 = "To be flexible and\n" +
-                    "customizable";
-            String expectedText3 = "To be multiplatform";
-            String expectedText4 = "Already have good base\n" +
-                    "(about 20 internal and\n" +
-                    "some external projects),\n" +
-                    "wish to get more…";
-            List<WebElement> textUnderIcons = driver.findElements(By.className("benefit-txt"));
-
-            for (WebElement text : textUnderIcons) {
-                Assert.assertTrue(text.isDisplayed());
-            }
-
-            Assert.assertEquals(textUnderIcons.get(0).getText(), expectedText1);
-            Assert.assertEquals(textUnderIcons.get(1).getText(), expectedText2);
-            Assert.assertEquals(textUnderIcons.get(2).getText(), expectedText3);
-            Assert.assertEquals(textUnderIcons.get(3).getText(), expectedText4);
-        }
-
-        //Checking the header and subheader are displayed
-        {
-            WebElement header = driver.findElement(By.cssSelector(".main-title.text-center"));
-            Assert.assertTrue(header.isDisplayed());
-
-            WebElement subHeader = driver.findElement(By.cssSelector(".main-txt.text-center"));
-            Assert.assertTrue(subHeader.isDisplayed());
-        }
+        //8 Assert that there are the main header and the text below it on the Home Page
+        WebElement header = driver.findElement(By.cssSelector(".main-title.text-center"));
+        assertTrue(header.isDisplayed());
+        WebElement subHeader = driver.findElement(By.cssSelector(".main-txt.text-center"));
+        assertTrue(subHeader.isDisplayed());
     }
 }
