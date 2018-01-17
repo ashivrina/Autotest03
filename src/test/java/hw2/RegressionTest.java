@@ -1,28 +1,22 @@
 package hw2;
 
+import base.TestBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class RegressionTest {
-    private WebDriver driver;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+public class RegressionTest extends TestBase {
 
     @BeforeTest(alwaysRun = true)
     public void setup() {
-        driver = new ChromeDriver();
         driver.navigate().to("https://jdi-framework.github.io/tests");
-    }
-
-    @AfterTest(alwaysRun = true)
-    public void tearDown() {
-        driver.close();
     }
 
     @Test(groups = {"regression"})
@@ -36,25 +30,17 @@ public class RegressionTest {
 
     @Test(groups = {"regression"})
     public void checkTexts() {
-        String expectedText1 = "To include good practices\n" +
-                "and ideas from successful\n" +
-                "EPAM projec";
-        String expectedText2 = "To be flexible and\n" +
-                "customizable";
-        String expectedText3 = "To be multiplatform";
-        String expectedText4 = "Already have good base\n" +
-                "(about 20 internal and\n" +
-                "some external projects),\n" +
-                "wish to get more…";
-        List<WebElement> textUnderIcons = driver.findElements(By.className("benefit-txt"));
+        String[] correctTexts = {"To include good practices and ideas from successful EPAM projec",
+                "To be flexible and customizable",
+                "To be multiplatform",
+                "Already have good base (about 20 internal and some external projects), wish to get more…"};
 
+        List<WebElement> textUnderIcons = driver.findElements(By.cssSelector(".benefit-txt"));
         for (WebElement text : textUnderIcons) {
-            Assert.assertTrue(text.isDisplayed());
+            assertTrue(text.isDisplayed());
         }
-
-        Assert.assertEquals(textUnderIcons.get(0).getText(), expectedText1);
-        Assert.assertEquals(textUnderIcons.get(1).getText(), expectedText2);
-        Assert.assertEquals(textUnderIcons.get(2).getText(), expectedText3);
-        Assert.assertEquals(textUnderIcons.get(3).getText(), expectedText4);
+        for (int i = 0; i < textUnderIcons.size(); i++) {
+            assertEquals(textUnderIcons.get(i).getText().replaceAll("\n", " "), correctTexts[i]);
+        }
     }
 }
