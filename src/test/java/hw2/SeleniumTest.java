@@ -50,9 +50,11 @@ public class SeleniumTest {
     }
 
     @Test
-    public void testWesite() {
+    public void testWebsite() {
         //1 Open website by URL
         driver.navigate().to("https://jdi-framework.github.io/tests");
+        driver.manage().window().fullscreen();
+
 
         //2 Assert Browser title
         assertEquals(driver.getTitle(), "Index Page");
