@@ -64,7 +64,7 @@ public class LoginPage {
         }
     }
 
-    public void checkTextsUnderImages (List<String> correctTexts) {
+    public void checkTextsUnderImages(List<String> correctTexts) {
         for (int i = 0; i < textsUnderImages.size(); i++) {
             assertTrue(textsUnderImages.get(i).isDisplayed());
             assertEquals(textsUnderImages.get(i).getText().replaceAll("\n", " "), correctTexts.get(i));

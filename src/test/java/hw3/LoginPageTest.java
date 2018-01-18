@@ -27,9 +27,8 @@ public class LoginPageTest extends TestBase {
         //3 Perform login
         loginPage.login("epam", "1234");
 
-       //4 Assert User name in the left-top side of screen that user is logged in
+        //4 Assert User name in the left-top side of screen that user is logged in
         loginPage.checkUsername("PITER CHAILOVSKII");
-
 
         //5 Assert Browser title...again
         loginPage.checkPageTitle(driver, "Index Page");
