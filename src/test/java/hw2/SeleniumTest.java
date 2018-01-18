@@ -18,7 +18,7 @@ public class SeleniumTest {
 
     @BeforeSuite
     public void setupBeforeSuite() {
-        setProperty("webdriver.chrome.driver", "chromedriver");
+        setProperty("webdriver.chrome.driver", "chromedriver.exe");
     }
 
     @BeforeTest
