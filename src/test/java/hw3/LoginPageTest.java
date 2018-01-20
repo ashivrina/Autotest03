@@ -37,7 +37,7 @@ public class LoginPageTest extends TestBase {
         loginPage.checkImages();
 
         //7 Assert that there are 4 texts on the Home Page and check them by getting texts
-        loginPage.checkTextsUnderImages(IndexPageTextsEnum.getAllTexts());
+        loginPage.checkTextsUnderImages(IndexPageTextsEnum.values());
 
         //8 Assert that there are the main header and the text below it on the Home Page
         loginPage.checkHeaderDisplayed();
