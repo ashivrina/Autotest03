@@ -1,5 +1,6 @@
 package page_objects;
 
+import enums.IndexPageTextsEnum;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -64,10 +65,10 @@ public class LoginPage {
         }
     }
 
-    public void checkTextsUnderImages(List<String> correctTexts) {
+    public void checkTextsUnderImages(IndexPageTextsEnum[] texts) {
         for (int i = 0; i < textsUnderImages.size(); i++) {
             assertTrue(textsUnderImages.get(i).isDisplayed());
-            assertEquals(textsUnderImages.get(i).getText().replaceAll("\n", " "), correctTexts.get(i));
+            assertEquals(textsUnderImages.get(i).getText().replaceAll("\n", " "), texts[i].text);
         }
     }
 
