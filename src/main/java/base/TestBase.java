@@ -12,6 +12,7 @@ public abstract class TestBase {
     @BeforeSuite (alwaysRun = true)
     public void setUpTestSuite() {
         driver = new ChromeDriver();
+        driver.manage().window().fullscreen();
     }
 
     @AfterSuite(alwaysRun = true)
