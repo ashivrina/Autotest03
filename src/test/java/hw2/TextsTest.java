@@ -1,15 +1,34 @@
 package hw2;
 
-import base.TestBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class TextsTest extends TestBase {
+public class TextsTest {
+
+    private static WebDriver driver;
+
+    @BeforeTest(alwaysRun = true)
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.navigate().to("https://jdi-framework.github.io/tests");
+        driver.manage().window().fullscreen();
+    }
+
+    @AfterTest(alwaysRun = true)
+    public void tearDown() {
+        if (driver != null) {
+            driver.close();
+        }
+    }
 
     @DataProvider(parallel = true)
     public Object[][] correctTexts() {
@@ -23,7 +42,6 @@ public class TextsTest extends TestBase {
 
     @Test(dataProvider = "correctTexts")
     public void testTexts(int textNumber, String s) {
-        driver.navigate().to("https://jdi-framework.github.io/tests");
         List<WebElement> textUnderIcons = driver.findElements(By.className("benefit-txt"));
         Assert.assertEquals(textUnderIcons.get(textNumber).getText().replaceAll("\n", " "), s);
     }
