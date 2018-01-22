@@ -24,9 +24,7 @@ public class TextsTest {
 
     @AfterTest(alwaysRun = true)
     public void tearDown() {
-        if (driver != null) {
             driver.close();
-        }
     }
 
     @DataProvider(parallel = true)
