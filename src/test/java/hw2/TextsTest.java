@@ -19,7 +19,6 @@ public class TextsTest {
     @BeforeTest(alwaysRun = true)
     public void setUp() {
         driver = new ChromeDriver();
-        driver.navigate().to("https://jdi-framework.github.io/tests");
         driver.manage().window().fullscreen();
     }
 
@@ -42,6 +41,7 @@ public class TextsTest {
 
     @Test(dataProvider = "correctTexts")
     public void testTexts(int textNumber, String s) {
+        driver.navigate().to("https://jdi-framework.github.io/tests");
         List<WebElement> textUnderIcons = driver.findElements(By.className("benefit-txt"));
         Assert.assertEquals(textUnderIcons.get(textNumber).getText().replaceAll("\n", " "), s);
     }
