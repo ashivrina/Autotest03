@@ -19,7 +19,7 @@ public class LoginPageTest extends TestBase {
     @Test
     public void loginTest() {
         //1 Open website by URL
-        loginPage.open(driver, "https://jdi-framework.github.io/tests");
+        loginPage.open(driver);
 
         //2 Assert Browser title
         loginPage.checkPageTitle(driver, "Index Page");

@@ -39,8 +39,8 @@ public class LoginPage {
     @FindBy(css = ".main-txt.text-center")
     private WebElement subheader;
 
-    public void open(WebDriver driver, String url) {
-        driver.navigate().to(url);
+    public void open(WebDriver driver) {
+        driver.navigate().to("https://jdi-framework.github.io/tests");
     }
 
     public void checkPageTitle(WebDriver driver, String title) {
@@ -60,12 +60,14 @@ public class LoginPage {
     }
 
     public void checkImages() {
+        assertEquals(images.size(), 4);
         for (WebElement image : images) {
             assertTrue(image.isDisplayed());
         }
     }
 
     public void checkTextsUnderImages(IndexPageTextsEnum[] texts) {
+        assertEquals(textsUnderImages.size(), 4);
         for (int i = 0; i < textsUnderImages.size(); i++) {
             assertTrue(textsUnderImages.get(i).isDisplayed());
             assertEquals(textsUnderImages.get(i).getText().replaceAll("\n", " "), texts[i].text);
