@@ -7,9 +7,9 @@ import org.testng.annotations.BeforeSuite;
 
 public abstract class TestBase {
 
-    public static WebDriver driver;
+    public WebDriver driver;
 
-    @BeforeSuite (alwaysRun = true)
+   @BeforeSuite (alwaysRun = true)
     public void setUpTestSuite() {
         driver = new ChromeDriver();
         driver.manage().window().fullscreen();
