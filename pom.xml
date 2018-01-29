@@ -61,7 +61,7 @@
 
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>/Users/annashivrina/TestAuto/src/test/resources/testngSelenideParallel.xml</suiteXmlFile>
+                            <suiteXmlFile>/Users/annashivrina/Documents/EPAM/TestAutoProject/src/test/resources/testngSelenideParallel.xml</suiteXmlFile>
                         </suiteXmlFiles>
 
                         <argLine>
