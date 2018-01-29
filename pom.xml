@@ -8,6 +8,10 @@
     <artifactId>TestAuto</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
@@ -20,7 +24,71 @@
             <artifactId>selenium-java</artifactId>
             <version>3.8.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>4.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-testng-adaptor</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-maven-plugin</artifactId>
+            <version>2.6</version>
+        </dependency>
+
     </dependencies>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.20.1</version>
+
+                    <configuration>
+                        <suiteXmlFiles>
+                            <suiteXmlFile>/Users/annashivrina/TestAuto/src/test/resources/testngSelenideParallel.xml</suiteXmlFile>
+                        </suiteXmlFiles>
+
+                        <argLine>
+                            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.8.13/aspectjweaver-1.8.13.jar"
+                        </argLine>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjweaver</artifactId>
+                            <version>1.8.13</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <plugins>
+            <plugin>
+                <groupId>ru.yandex.qatools.allure</groupId>
+                <artifactId>allure-maven-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>
